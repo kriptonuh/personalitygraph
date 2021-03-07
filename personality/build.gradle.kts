@@ -26,6 +26,8 @@ dependencies {
     implementation("io.ktor:ktor-server-core:$ktor_version")
     implementation("io.ktor:ktor-gson:$ktor_version")
     implementation("io.ktor:ktor-server-netty:$ktor_version")
+    implementation( "org.neo4j:neo4j-ogm-core:3.2.21")
+    implementation( "org.neo4j:neo4j-ogm-bolt-driver:3.2.21")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
 }
