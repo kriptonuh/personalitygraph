@@ -5,8 +5,6 @@ import io.ktor.features.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.personalitygraph.dao.PersonDao
-import io.personalitygraph.test_di.MessageService
-import io.personalitygraph.test_di.helloAppModule
 import org.koin.ktor.ext.Koin
 import org.koin.ktor.ext.inject
 import org.koin.logger.slf4jLogger
@@ -28,14 +26,13 @@ fun Application.module(testing: Boolean = false) {
 
     install(Koin) {
         slf4jLogger()
-        modules(helloAppModule, personalityGraphModule)
+        modules(personalityGraphModule)
     }
-    val service: MessageService by inject()
     val personDao: PersonDao by inject()
 
     routing {
         get("/") {
-            call.respondText("message: ${service.getMessage("rrrrrr", "!!!!!!")}")
+            call.respondText("message")
         }
     }
     routing {
