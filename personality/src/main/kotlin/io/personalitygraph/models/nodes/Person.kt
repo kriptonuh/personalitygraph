@@ -1,12 +1,13 @@
 package io.personalitygraph.models.nodes
 
+import org.koin.core.qualifier.named
 import org.neo4j.ogm.annotation.GeneratedValue
 import org.neo4j.ogm.annotation.Id
 import org.neo4j.ogm.annotation.NodeEntity
 import org.neo4j.ogm.annotation.Relationship
 
 
-@NodeEntity
+@NodeEntity(label = "Person")
 class Person {
     @Id
     @GeneratedValue
@@ -17,7 +18,7 @@ class Person {
     lateinit var personalResults: Set<PersonalResult>
 
     override fun toString(): String {
-        return "Person(id=$id, name='$name')"
+        return "Person(id=$id, name='$name', has results: [])"
     }
 
     //@Relationship(type = "HAS", direction = "INCOMING")

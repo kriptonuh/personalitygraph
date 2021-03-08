@@ -34,8 +34,7 @@ CREATE
   (result3)-[:DESCRIBES]->(intro_extra),
 
   (result1)-[:CONFLICTS]->(result2),
-  (result1)-[:ORTHOGONAL]->(result3),
-  (result2)-[:ORTHOGONAL]->(result3)
+  (result2)-[:ACCEPTS]->(result3)
 
 CREATE (test:Test {id: 1, name: 'Introversion/Extraversion', description: 'Defines your personality type'})
 CREATE
@@ -51,9 +50,9 @@ CREATE (personalResult:PersonalResult {id: 1})
 CREATE (personalResultRoot:PersonalResult {id: 2})
 CREATE
   (personalResult)-[:RESULT_FOR]->(test),
+  (personalResultRoot)-[:RECEIVED]->(result0),
   (personalResult)-[:RECEIVED]->(result1),
-  (personalResult)-[:EXPANDS]->(personalResultRoot),
-  (personalResultRoot)-[:RECEIVED]->(result0)
+  (personalResult)-[:EXPANDS]->(personalResultRoot)
 
 
 CREATE (person:Person {id: 1, name: 'Dimon'})

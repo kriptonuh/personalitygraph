@@ -23,6 +23,8 @@ class Test {
     lateinit var possibleResults: Set<Result>
     @Relationship(type = "REQUIRES", direction = Relationship.OUTGOING)
     lateinit var requiredResults: Set<Result>
+    @Relationship(type = "RESULT_FOR", direction = Relationship.INCOMING)
+    lateinit var personalResults: Set<PersonalResult>
 
     lateinit var expandedBy: Set<Test>
 

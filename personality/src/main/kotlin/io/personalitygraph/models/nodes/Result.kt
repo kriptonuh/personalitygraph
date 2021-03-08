@@ -21,6 +21,9 @@ class Result {
     @Relationship(type = "DESCRIBES", direction = Relationship.OUTGOING)
     lateinit var characteristic: Characteristic
 
+    @Relationship(type = "ACCEPTS", direction = Relationship.UNDIRECTED)
+    lateinit var acceptedResults: Set<Result>
+
     var min: Int = 0
     var max: Int = 0
 
