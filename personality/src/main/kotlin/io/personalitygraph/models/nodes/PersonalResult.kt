@@ -15,12 +15,16 @@ class PersonalResult {
     @GeneratedValue
     val id: Long = 0
 
-    //lateinit var name: String
+    @Relationship(type = "FOR_PERSON", direction = Relationship.OUTGOING)
+    lateinit var person: Person
 
+    @Relationship(type = "FOR_TEST", direction = Relationship.OUTGOING)
     lateinit var test: Test
-    //lateinit var characteristic: Characteristic
+
+    @Relationship(type = "RECEIVED", direction = Relationship.OUTGOING)
     lateinit var result: Result
 
+    @Relationship(type = "EXPANDS", direction = Relationship.OUTGOING)
     lateinit var expands: PersonalResult
 
     override fun toString(): String {

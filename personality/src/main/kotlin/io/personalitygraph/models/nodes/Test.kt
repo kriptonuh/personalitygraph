@@ -3,6 +3,7 @@ package io.personalitygraph.models.nodes
 import org.neo4j.ogm.annotation.GeneratedValue
 import org.neo4j.ogm.annotation.Id
 import org.neo4j.ogm.annotation.NodeEntity
+import org.neo4j.ogm.annotation.Relationship
 
 /**
  * example - "IQ test"
@@ -16,8 +17,11 @@ class Test {
     lateinit var name: String
     lateinit var description: String
 
+    @Relationship(type = "CONTAINS", direction = Relationship.OUTGOING)
     lateinit var questions: Set<Question>
+    @Relationship(type = "ADMITS", direction = Relationship.OUTGOING)
     lateinit var possibleResults: Set<Result>
+    @Relationship(type = "REQUIRES", direction = Relationship.OUTGOING)
     lateinit var requiredResults: Set<Result>
 
     lateinit var expandedBy: Set<Test>

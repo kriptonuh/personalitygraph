@@ -13,6 +13,7 @@ class Person {
     val id: Long = 0
     lateinit var name: String
 
+    @Relationship(type = "FOR_PERSON", direction = Relationship.INCOMING)
     lateinit var personalResults: Set<PersonalResult>
 
     override fun toString(): String {
