@@ -1,9 +1,6 @@
 package io.personalitygraph.models.nodes
 
-import org.neo4j.ogm.annotation.GeneratedValue
-import org.neo4j.ogm.annotation.Id
-import org.neo4j.ogm.annotation.NodeEntity
-import org.neo4j.ogm.annotation.Relationship
+import org.neo4j.ogm.annotation.*
 
 /**
  * example - "IQ test"
@@ -12,19 +9,22 @@ import org.neo4j.ogm.annotation.Relationship
 class Test {
     @Id
     @GeneratedValue
-    val id: Long = 0
+    var id: Long? = null
 
+    @Property
     lateinit var name: String
+
+    @Property
     lateinit var description: String
 
     @Relationship(type = "CONTAINS", direction = Relationship.OUTGOING)
-    lateinit var questions: Set<Question>
+    var questions: MutableSet<Question> = mutableSetOf()
     @Relationship(type = "ADMITS", direction = Relationship.OUTGOING)
-    lateinit var possibleResults: Set<Result>
+    var possibleResults: MutableSet<Result> = mutableSetOf()
     @Relationship(type = "REQUIRES", direction = Relationship.OUTGOING)
-    lateinit var requiredResults: Set<Result>
+    var requiredResults: MutableSet<Result> = mutableSetOf()
     @Relationship(type = "RESULT_FOR", direction = Relationship.INCOMING)
-    lateinit var personalResults: Set<PersonalResult>
+    var personalResults: MutableSet<PersonalResult> = mutableSetOf()
 
     lateinit var expandedBy: Set<Test>
 

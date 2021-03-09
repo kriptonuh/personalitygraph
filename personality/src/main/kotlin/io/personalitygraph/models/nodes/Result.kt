@@ -1,9 +1,6 @@
 package io.personalitygraph.models.nodes
 
-import org.neo4j.ogm.annotation.GeneratedValue
-import org.neo4j.ogm.annotation.Id
-import org.neo4j.ogm.annotation.NodeEntity
-import org.neo4j.ogm.annotation.Relationship
+import org.neo4j.ogm.annotation.*
 
 /**
  * example - "Passed"
@@ -13,22 +10,25 @@ import org.neo4j.ogm.annotation.Relationship
 class Result {
     @Id
     @GeneratedValue
-    val id: Long = 0
+    var id: Long? = null
 
-    lateinit var name: String
-    lateinit var description: String
+    @Property
+    var name: String? = null
+
+    @Property
+    var description: String? = null
 
     @Relationship(type = "DESCRIBES", direction = Relationship.OUTGOING)
-    lateinit var characteristic: Characteristic
+    var characteristic: Characteristic? = null
 
     @Relationship(type = "ACCEPTS", direction = Relationship.UNDIRECTED)
-    lateinit var acceptedResults: Set<Result>
+    var acceptedResults: MutableSet<Result> = mutableSetOf()
 
     var min: Int = 0
     var max: Int = 0
 
     override fun toString(): String {
-        return "Result(id=$id, name='$name', creteria: characteristic=${characteristic.name} min=$min, max=$max)"
+        return "Result(id=$id, name='$name', creteria: characteristic=${characteristic} min=$min, max=$max)"
     }
 
 

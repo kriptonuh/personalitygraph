@@ -7,11 +7,11 @@ import org.neo4j.ogm.annotation.*
 class Received {
     @Id
     @GeneratedValue
-    val id: Long = 0
+    var id: Long? = null
 
     @StartNode
-    lateinit var personalResult: PersonalResult
+    var personalResult: PersonalResult? = null
 
     @EndNode
-    lateinit var result: Result
+    var result: Result? = null
 }

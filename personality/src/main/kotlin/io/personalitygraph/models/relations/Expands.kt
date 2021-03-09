@@ -7,11 +7,11 @@ import org.neo4j.ogm.annotation.*
 class Expands {
     @Id
     @GeneratedValue
-    val id: Long = 0
+    var id: Long? = null
 
     @StartNode
-    lateinit var current: PersonalResult
+    var current: PersonalResult? = null
 
     @EndNode
-    lateinit var parent: PersonalResult
+    var parent: PersonalResult? = null
 }

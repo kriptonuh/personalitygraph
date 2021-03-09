@@ -7,11 +7,11 @@ import org.neo4j.ogm.annotation.*
 class OfType {
     @Id
     @GeneratedValue
-    val id: Long = 0
+    var id: Long? = null
 
     @StartNode
-    lateinit var question: Question
+    var question: Question? = null
 
     @EndNode
-    lateinit var questionType: QuestionType
+    var questionType: QuestionType? = null
 }

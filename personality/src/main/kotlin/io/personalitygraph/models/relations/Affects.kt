@@ -8,13 +8,13 @@ import org.neo4j.ogm.annotation.*
 class Affects {
     @Id
     @GeneratedValue
-    val id: Long = 0
+    var id: Long? = null
 
     @StartNode
-    lateinit var answer: Answer
+    var answer: Answer? = null
 
     @EndNode
-    lateinit var characteristic: Characteristic
+    var characteristic: Characteristic? = null
 
     @Property
     var modifier: Int = 0

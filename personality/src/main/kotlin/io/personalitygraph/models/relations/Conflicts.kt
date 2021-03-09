@@ -7,11 +7,11 @@ import org.neo4j.ogm.annotation.*
 class Conflicts {
     @Id
     @GeneratedValue
-    val id: Long = 0
+    var id: Long? = null
 
     @StartNode
-    lateinit var firstResult: Result
+    var firstResult: Result? = null
 
     @EndNode
-    lateinit var secondResult: Result
+    var secondResult: Result? = null
 }

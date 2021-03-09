@@ -1,28 +1,26 @@
 package io.personalitygraph.models.nodes
 
-import org.koin.core.qualifier.named
-import org.neo4j.ogm.annotation.GeneratedValue
-import org.neo4j.ogm.annotation.Id
-import org.neo4j.ogm.annotation.NodeEntity
-import org.neo4j.ogm.annotation.Relationship
+import org.neo4j.ogm.annotation.*
 
 
 @NodeEntity(label = "Person")
 class Person {
     @Id
     @GeneratedValue
-    val id: Long = 0
-    lateinit var name: String
+    var id: Long? = null
+
+    @Property
+    var name: String? = null
 
     @Relationship(type = "FOR_PERSON", direction = Relationship.INCOMING)
-    lateinit var personalResults: Set<PersonalResult>
+    var personalResults: MutableSet<PersonalResult> = mutableSetOf()
 
-    override fun toString(): String {
-        return "Person(id=$id, name='$name', has results: [])"
+    fun addResult(personalResult: PersonalResult){
+        personalResults.add(personalResult)
     }
 
-    //@Relationship(type = "HAS", direction = "INCOMING")
-    //lateinit var characteristics: Set<Characteristic>
-
+    override fun toString(): String {
+        return "Person(id=$id, name='$name', has results: [${personalResults.joinToString()}])"
+    }
 
 }

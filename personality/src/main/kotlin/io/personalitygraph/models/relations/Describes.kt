@@ -8,11 +8,11 @@ import org.neo4j.ogm.annotation.*
 class Describes {
     @Id
     @GeneratedValue
-    val id: Long = 0
+    var id: Long? = null
 
     @StartNode
-    lateinit var result: Result
+    var result: Result? = null
 
     @EndNode
-    lateinit var characteristic: Characteristic
+    var characteristic: Characteristic? = null
 }

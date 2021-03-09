@@ -1,30 +1,24 @@
 package io.personalitygraph.dao
 
 import io.personalitygraph.Neo4jSessionFactory
-import org.koin.core.logger.Level
-import org.koin.core.logger.Level.*
-import org.koin.core.logger.Logger
-import org.koin.logger.slf4jLogger
 import org.neo4j.ogm.session.Session
-import org.koin.ktor.ext.inject
 import org.slf4j.LoggerFactory
 
-abstract class GenericDao<T>(private val neo4jSessionFactory: Neo4jSessionFactory) : Dao<T> {
-    private val DEPTH_LIST = 0
-    private val DEPTH_ENTITY = 1
+abstract class GenericDao<T>(neo4jSessionFactory: Neo4jSessionFactory) : Dao<T> {
     private val log = LoggerFactory.getLogger(this::class.java.simpleName)
+    private val depthList = 2
+    private val depthEntity = 2
     protected val session: Session = neo4jSessionFactory.getNeo4jSession()
 
 
     override fun findAll(): Iterable<T> {
-        //println("trying to find all items of type [${getEntityType().canonicalName}]")
         log.debug("trying to find all items of type [${getEntityType().canonicalName}]")
-        return session.loadAll(getEntityType(), DEPTH_LIST)
+        return session.loadAll(getEntityType(), depthList)
     }
 
     override fun find(id: Long): T {
         log.debug("trying to find item of type [${getEntityType().canonicalName}] for ID [$id]")
-        return session.load(getEntityType(), id, DEPTH_ENTITY)
+        return session.load(getEntityType(), id, depthEntity)
     }
 
     override fun delete(id: Long) {
@@ -34,7 +28,8 @@ abstract class GenericDao<T>(private val neo4jSessionFactory: Neo4jSessionFactor
 
     override fun createOrUpdate(item: T) {
         log.debug("trying to create/update item of type [${getEntityType().canonicalName}]")
-        session.save(item, DEPTH_ENTITY)
+        session.save(item, depthEntity)
+
     }
 
     abstract fun getEntityType(): Class<T>

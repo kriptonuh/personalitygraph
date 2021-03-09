@@ -5,6 +5,9 @@ import io.ktor.features.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.personalitygraph.dao.PersonDao
+import io.personalitygraph.dao.PersonalResultDao
+import io.personalitygraph.models.nodes.Person
+import io.personalitygraph.models.nodes.PersonalResult
 import org.koin.ktor.ext.Koin
 import org.koin.ktor.ext.inject
 import org.koin.logger.slf4jLogger
@@ -29,6 +32,7 @@ fun Application.module(testing: Boolean = false) {
         modules(personalityGraphModule)
     }
     val personDao: PersonDao by inject()
+    val personalResultDao: PersonalResultDao by inject()
 
     routing {
         get("/") {
@@ -43,6 +47,15 @@ fun Application.module(testing: Boolean = false) {
     routing {
         get("/persons") {
             call.respond(personDao.findAll().joinToString())
+        }
+    }
+    routing {
+        get("/create") {
+            val person = Person()
+            person.name = "2222"
+            person.addResult(PersonalResult())
+            personDao.createOrUpdate(person)
+            call.respond("ok")
         }
     }
 }

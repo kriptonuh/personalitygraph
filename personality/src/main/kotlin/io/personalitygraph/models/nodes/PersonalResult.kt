@@ -9,26 +9,26 @@ import org.neo4j.ogm.annotation.Relationship
  * example - "your IQ = 150"
  * example - "you are Introvert"
  */
-@NodeEntity
+@NodeEntity(label = "PersonalResult")
 class PersonalResult {
     @Id
     @GeneratedValue
-    val id: Long = 0
+    var id: Long? = null
 
-    @Relationship(type = "FOR_PERSON", direction = Relationship.OUTGOING)
-    lateinit var person: Person
+    @Relationship(type = "FOR_PERSON")
+    var person: Person? = null
 
     @Relationship(type = "FOR_TEST", direction = Relationship.OUTGOING)
-    lateinit var test: Test
+    var test: Test? = null
 
     @Relationship(type = "RECEIVED", direction = Relationship.OUTGOING)
-    lateinit var result: Result
+    var results: MutableSet<Result> = mutableSetOf()
 
     @Relationship(type = "EXPANDS", direction = Relationship.OUTGOING)
-    lateinit var expands: PersonalResult
+    var expands: PersonalResult? = null
 
     override fun toString(): String {
-        return "PersonalResult(id=$id, test=${test.name}, result=${result.name})"
+        return "PersonalResult(id=$id by person=$person for test=$test)"
     }
 
 

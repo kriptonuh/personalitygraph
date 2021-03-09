@@ -8,11 +8,11 @@ import org.neo4j.ogm.annotation.*
 class Requires {
     @Id
     @GeneratedValue
-    val id: Long = 0
+    var id: Long? = null
 
     @StartNode
-    lateinit var test: Test
+    var test: Test? = null
 
     @EndNode
-    lateinit var result: Result
+    var result: Result? = null
 }
