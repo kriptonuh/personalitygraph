@@ -8,6 +8,7 @@ import io.personalitygraph.dao.PersonDao
 import io.personalitygraph.dao.PersonalResultDao
 import io.personalitygraph.models.nodes.Person
 import io.personalitygraph.models.nodes.PersonalResult
+import io.personalitygraph.services.InitService
 import org.koin.ktor.ext.Koin
 import org.koin.ktor.ext.inject
 import org.koin.logger.slf4jLogger
@@ -29,10 +30,11 @@ fun Application.module(testing: Boolean = false) {
 
     install(Koin) {
         slf4jLogger()
-        modules(personalityGraphModule)
+        modules(personalityGraphModule,personalityGraphModule)
     }
     val personDao: PersonDao by inject()
     val personalResultDao: PersonalResultDao by inject()
+    val initService: InitService by inject()
 
     routing {
         get("/") {
@@ -51,10 +53,14 @@ fun Application.module(testing: Boolean = false) {
     }
     routing {
         get("/create") {
-            val person = Person()
-            person.name = "2222"
-            person.addResult(PersonalResult())
+            val person = Person("2222")
             personDao.createOrUpdate(person)
+            call.respond("ok")
+        }
+    }
+    routing {
+        get("/init") {
+            initService.init()
             call.respond("ok")
         }
     }

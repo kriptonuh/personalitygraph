@@ -10,13 +10,10 @@ import org.neo4j.ogm.annotation.Property
  * example2 - "Introversion|Extraversion"
  */
 @NodeEntity
-class Characteristic {
+class Characteristic(@Property var name: String) {
     @Id
     @GeneratedValue
     var id: Long? = null
-
-    @Property
-    var name: String? = null
 
     override fun toString(): String {
         return "Characteristic(id=$id, name='$name')"

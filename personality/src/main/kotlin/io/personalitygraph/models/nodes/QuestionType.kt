@@ -10,14 +10,13 @@ import org.neo4j.ogm.annotation.Property
  * example2 - "rate"
  */
 @NodeEntity
-class QuestionType {
+class QuestionType(
+    @Property var type: String
+) {
 
     @Id
     @GeneratedValue
     var id: Long? = null
-
-    @Property
-    var type: String? = null
 
     override fun toString(): String {
         return "QuestionType(id=$id, type='$type')"

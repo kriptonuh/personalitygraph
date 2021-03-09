@@ -5,17 +5,12 @@ import io.personalitygraph.models.nodes.Characteristic
 import org.neo4j.ogm.annotation.*
 
 @RelationshipEntity(type = "AFFECTS")
-class Affects {
+class Affects(
+    @StartNode var answer: Answer,
+    @EndNode var characteristic: Characteristic,
+    @Property var modifier: Int
+) {
     @Id
     @GeneratedValue
     var id: Long? = null
-
-    @StartNode
-    var answer: Answer? = null
-
-    @EndNode
-    var characteristic: Characteristic? = null
-
-    @Property
-    var modifier: Int = 0
 }
