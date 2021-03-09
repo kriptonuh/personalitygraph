@@ -7,11 +7,11 @@ import io.ktor.routing.*
 import io.personalitygraph.dao.PersonDao
 import io.personalitygraph.dao.PersonalResultDao
 import io.personalitygraph.models.nodes.Person
-import io.personalitygraph.models.nodes.PersonalResult
 import io.personalitygraph.services.InitService
 import org.koin.ktor.ext.Koin
 import org.koin.ktor.ext.inject
 import org.koin.logger.slf4jLogger
+import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>): Unit {
     io.ktor.server.netty.EngineMain.main(args)
@@ -30,7 +30,7 @@ fun Application.module(testing: Boolean = false) {
 
     install(Koin) {
         slf4jLogger()
-        modules(personalityGraphModule,personalityGraphModule)
+        modules(personalityGraphModule, personalityGraphModule)
     }
     val personDao: PersonDao by inject()
     val personalResultDao: PersonalResultDao by inject()
@@ -53,15 +53,17 @@ fun Application.module(testing: Boolean = false) {
     }
     routing {
         get("/create") {
-            val person = Person("2222")
+            val person = Person.Builder()
+                .name("444")
+                .build()
             personDao.createOrUpdate(person)
             call.respond("ok")
         }
     }
     routing {
         get("/init") {
-            initService.init()
-            call.respond("ok")
+            val time = measureTimeMillis { initService.init() }
+            call.respond("initialized for ${time}ms")
         }
     }
 }

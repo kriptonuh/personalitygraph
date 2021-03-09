@@ -1,8 +1,8 @@
 package io.personalitygraph
 
 import io.personalitygraph.dao.*
+import io.personalitygraph.services.initializators.BuilderBasedInitService
 import io.personalitygraph.services.InitService
-import io.personalitygraph.services.TestInitService
 import org.koin.dsl.module
 
 val personalityGraphModule = module(createdAtStart = true) {
@@ -15,10 +15,10 @@ val personalityGraphModule = module(createdAtStart = true) {
     single { QuestionTypeDaoImpl(get()) as QuestionTypeDao }
     single { QuestionDaoImpl(get()) as QuestionDao }
     single { CharacteristicDaoImpl(get()) as CharacteristicDao }
-    single { AnswerDaoImpl(get()) as AnswerDao }
+    single { AnswerDaoImpl(get(), get()) as AnswerDao }
     single { ResultDaoImpl(get()) as ResultDao }
     single { AffectsDaoImpl(get()) as AffectsDao }
 
     //Services
-    single { TestInitService(get(), get(), get(), get(), get(), get(), get(), get(), get()) as InitService }
+    single { BuilderBasedInitService(get(), get(), get(), get(), get(), get(), get(), get(), get()) as InitService }
 }

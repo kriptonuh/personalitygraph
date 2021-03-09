@@ -1,5 +1,6 @@
 package io.personalitygraph.models.nodes
 
+import io.personalitygraph.models.DomainModel
 import org.neo4j.ogm.annotation.*
 
 /**
@@ -7,24 +8,15 @@ import org.neo4j.ogm.annotation.*
  */
 @NodeEntity
 class Test(
-    @Property var name: String,
-    @Property var description: String? = ""
-) {
-    @Id
-    @GeneratedValue
-    var id: Long? = null
-
+    @Property var name: String? = "",
+    @Property var description: String? = "",
     @Relationship(type = "CONTAINS", direction = Relationship.OUTGOING)
-    var questions: MutableSet<Question> = mutableSetOf()
-
+    var questions: MutableSet<Question> = mutableSetOf(),
     @Relationship(type = "ADMITS", direction = Relationship.OUTGOING)
-    var possibleResults: MutableSet<Result> = mutableSetOf()
-
+    var possibleResults: MutableSet<Result> = mutableSetOf(),
     @Relationship(type = "REQUIRES", direction = Relationship.OUTGOING)
     var requiredResults: MutableSet<Result> = mutableSetOf()
-
-    @Relationship(type = "RESULT_FOR", direction = Relationship.INCOMING)
-    var personalResults: MutableSet<PersonalResult> = mutableSetOf()
+) : DomainModel() {
 
 
     override fun toString(): String {
@@ -54,6 +46,7 @@ class Test(
     fun addResults(results: Collection<Result>) {
         possibleResults.addAll(results)
     }
+
     fun addRequiredResult(result: Result) {
         requiredResults.add(result)
     }
@@ -66,4 +59,24 @@ class Test(
         requiredResults.addAll(results)
     }
 
+    data class Builder(
+        private var name: String? = "",
+        private var description: String? = "",
+        private var questions: MutableSet<Question> = mutableSetOf(),
+        private var possibleResults: MutableSet<Result> = mutableSetOf(),
+        private var requiredResults: MutableSet<Result> = mutableSetOf(),
+    ) {
+        fun name(name: String) = apply { this.name = name }
+        fun description(description: String) = apply { this.description = description }
+        fun question(question: Question) = apply { this.questions.add(question) }
+        fun questions(vararg questions: Question) = apply { this.questions.addAll(questions) }
+        fun possibleResult(result: Result) = apply { this.possibleResults.add(result) }
+        fun possibleResults(vararg results: Result) = apply { this.possibleResults.addAll(results) }
+        fun requires(result: Result) = apply { this.requiredResults.add(result) }
+        fun requires(vararg results: Result) = apply { this.requiredResults.addAll(results) }
+
+        fun build(): Test {
+            return Test(name, description, questions, possibleResults, requiredResults)
+        }
+    }
 }

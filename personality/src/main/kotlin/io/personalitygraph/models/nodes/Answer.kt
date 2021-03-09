@@ -1,5 +1,6 @@
 package io.personalitygraph.models.nodes
 
+import io.personalitygraph.models.DomainModel
 import org.neo4j.ogm.annotation.*
 
 /**
@@ -7,18 +8,32 @@ import org.neo4j.ogm.annotation.*
  */
 @NodeEntity
 class Answer(
-    @Property var text: String
-) {
-
-    @Id
-    @GeneratedValue
-    var id: Long? = null
+    @Property
+    var answerText: String? = "",
 
     @Relationship(type = "AFFECTS", direction = Relationship.OUTGOING)
-    var characteristic: Characteristic? = null
+    var characteristic: Characteristic? = null,
+
+    @Transient var
+    affectingValue: Int? = 0
+
+) : DomainModel() {
 
     override fun toString(): String {
-        return "Answer(id=$id, text='$text', characteristic=${characteristic})"
+        return "Answer(id=$id, text='$answerText', characteristic=${characteristic})"
     }
 
+    @Transient
+    data class Builder(
+        private var answerText: String? = null,
+        private var characteristic: Characteristic? = null,
+        private var value: Int? = null
+    ) {
+        fun answerText(answerText: String) = apply { this.answerText = answerText }
+        fun characteristic(characteristic: Characteristic) = apply { this.characteristic = characteristic }
+        fun value(value: Int) = apply { this.value = value }
+        fun build(): Answer {
+            return Answer(answerText, characteristic, value)
+        }
+    }
 }
