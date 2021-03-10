@@ -1,6 +1,7 @@
 package io.personalitygraph
 
 import io.personalitygraph.dao.*
+import io.personalitygraph.models.RelationTypes
 import io.personalitygraph.services.initializators.BuilderBasedInitService
 import io.personalitygraph.services.InitService
 import io.personalitygraph.services.sessions.AnswerSaveEventListener
@@ -14,8 +15,6 @@ val personalityGraphModule = module(createdAtStart = true) {
     //listeners
     single(named("answerSaveEventListener")) { AnswerSaveEventListener() as EventListener }
 
-    single { StandaloneNeo4jSessionFactory(get(named("answerSaveEventListener"))) as Neo4jSessionFactory }
-
     //DAO
     single { PersonDaoImpl() as PersonDao }
     single { TestDaoImpl() as TestDao }
@@ -28,5 +27,8 @@ val personalityGraphModule = module(createdAtStart = true) {
     single { RelationDaoImpl() as RelationDao }
 
     //Services
-    single { BuilderBasedInitService(get()) as InitService }
+    single { StandaloneNeo4jSessionFactory(get(named("answerSaveEventListener"))) as Neo4jSessionFactory }
+    single { BuilderBasedInitService() as InitService }
+
+    single(named("relationTypesMap")) { RelationTypes.RELATION_TYPES_MAP }
 }

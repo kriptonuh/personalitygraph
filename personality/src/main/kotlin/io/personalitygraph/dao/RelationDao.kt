@@ -9,6 +9,8 @@ interface RelationDao {
         resultType: KClass<T>,
         start: S,
         end: E
-    ): T
+    ): T?
+
+    fun <T : DomainModel> createOrUpdate(item: T, depth: Int = 0)
 }
 

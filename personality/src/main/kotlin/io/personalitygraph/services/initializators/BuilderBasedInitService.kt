@@ -1,18 +1,22 @@
 package io.personalitygraph.services.initializators
 
-import io.personalitygraph.dao.*
+import io.personalitygraph.dao.PersonDao
+import io.personalitygraph.dao.TestDao
 import io.personalitygraph.models.nodes.*
 import io.personalitygraph.services.InitService
+import org.koin.java.KoinJavaComponent.inject
 import org.slf4j.LoggerFactory
 
 
-class BuilderBasedInitService(
-    private val testDao: TestDao
-) : InitService {
+class BuilderBasedInitService : InitService {
+    private val logger = LoggerFactory.getLogger(this::class.qualifiedName)
 
-    private val logger = LoggerFactory.getLogger(this::class.java.simpleName)
+    private val testDao by inject(TestDao::class.java)
+    private val personDao by inject(PersonDao::class.java)
 
     override fun init() {
+        logger.info("Initializing data")
+
         val radioQuestion = QuestionType.Builder().typeName("radio").build()
 
         val humanity = Characteristic.Builder().name("Humanity").build()
@@ -105,13 +109,7 @@ class BuilderBasedInitService(
                             .characteristic(personalityType)
                             .value(0).build()
                     ).build(),
-            )
-            .build()
-        childTest.questions.forEach {
-            logger.info("tetete $it")
-        }
-
-        testDao.createOrUpdate(rootTest, childTest)
+            ).build()
 
         val dimon = Person.Builder()
             .name("Dimon")
@@ -122,9 +120,13 @@ class BuilderBasedInitService(
                     .build()
             ).build()
 
-        //personDao.createOrUpdate(dimon)
-        //println(answerDao.createOrUpdate())
-        //personDao.createOrUpdate(Person("Banzai"))
+        logger.debug("Saving data $rootTest \n $childTest")
+        testDao.createOrUpdate(rootTest, childTest)
+
+        logger.debug("Saving data $dimon")
+        personDao.createOrUpdate(dimon)
+
+        logger.info("Data initialized")
     }
 
 }

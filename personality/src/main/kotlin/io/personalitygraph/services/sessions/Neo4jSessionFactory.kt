@@ -11,12 +11,10 @@ interface Neo4jSessionFactory {
 }
 
 class StandaloneNeo4jSessionFactory(private vararg val listeners: EventListener) : Neo4jSessionFactory {
-    private val configurationSource: ClasspathConfigurationSource =
-        ClasspathConfigurationSource("ogm.properties")
-    private val configuration: Configuration =
-        Configuration.Builder(configurationSource).connectionPoolSize(8).build()
-    private val sessionFactory: SessionFactory =
-        SessionFactory(configuration, "io.personalitygraph.models.nodes", "io.personalitygraph.models.relations")
+
+    private val source = ClasspathConfigurationSource("ogm.properties")
+    private val configuration = Configuration.Builder(source).build()
+    private val sessionFactory = SessionFactory(configuration, "io.personalitygraph.models")
 
     override fun getNeo4jSession(): Session {
         val session = sessionFactory.openSession()
