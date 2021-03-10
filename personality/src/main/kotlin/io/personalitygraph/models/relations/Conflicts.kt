@@ -1,9 +1,10 @@
 package io.personalitygraph.models.relations
 
+import io.personalitygraph.models.RelationTypes
 import io.personalitygraph.models.nodes.*
 import org.neo4j.ogm.annotation.*
 
-@RelationshipEntity(type = "CONFLICTS")
+@RelationshipEntity(type = RelationTypes.CONFLICTS)
 class Conflicts {
     @Id
     @GeneratedValue

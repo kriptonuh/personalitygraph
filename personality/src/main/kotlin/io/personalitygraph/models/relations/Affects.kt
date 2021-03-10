@@ -1,19 +1,17 @@
 package io.personalitygraph.models.relations
 
 import io.personalitygraph.models.DomainModel
+import io.personalitygraph.models.RelationTypes
 import io.personalitygraph.models.nodes.Answer
 import io.personalitygraph.models.nodes.Characteristic
 import org.neo4j.ogm.annotation.*
 
-
-@RelationshipEntity(type = "AFFECTS")
+@RelationshipEntity(type = RelationTypes.AFFECTS)
 class Affects(
     @StartNode var answer: Answer?,
     @EndNode var characteristic: Characteristic?,
     @Property var modifier: Int?
 ) : DomainModel() {
-
-    constructor() : this(null, null, null)
 
     @Transient
     data class Builder(
@@ -28,4 +26,9 @@ class Affects(
             return Affects(answer, characteristic, modifier)
         }
     }
+
+    override fun toString(): String {
+        return "Affects(answer=$answer, characteristic=$characteristic, modifier=$modifier)"
+    }
+
 }

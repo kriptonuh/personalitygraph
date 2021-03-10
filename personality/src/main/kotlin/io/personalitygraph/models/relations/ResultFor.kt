@@ -1,9 +1,10 @@
 package io.personalitygraph.models.relations
 
+import io.personalitygraph.models.RelationTypes
 import io.personalitygraph.models.nodes.*
 import org.neo4j.ogm.annotation.*
 
-@RelationshipEntity(type = "RESULT_FOR")
+@RelationshipEntity(type = RelationTypes.RESULT_FOR)
 class ResultFor {
     @Id
     @GeneratedValue

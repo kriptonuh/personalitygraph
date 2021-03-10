@@ -1,6 +1,7 @@
 package io.personalitygraph.models.nodes
 
 import io.personalitygraph.models.DomainModel
+import io.personalitygraph.models.RelationTypes
 import org.neo4j.ogm.annotation.*
 
 /**
@@ -11,7 +12,7 @@ class Answer(
     @Property
     var answerText: String? = "",
 
-    @Relationship(type = "AFFECTS", direction = Relationship.OUTGOING)
+    @Relationship(type = RelationTypes.AFFECTS, direction = Relationship.OUTGOING)
     var characteristic: Characteristic? = null,
 
     @Transient var

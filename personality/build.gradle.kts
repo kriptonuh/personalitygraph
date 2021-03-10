@@ -54,3 +54,7 @@ tasks.test {
         events("passed", "skipped", "failed")
     }
 }
+tasks.withType(KotlinCompile::class)
+    .forEach {
+        it.kotlinOptions { freeCompilerArgs = listOf("-XXLanguage:+NewInference") }
+    }

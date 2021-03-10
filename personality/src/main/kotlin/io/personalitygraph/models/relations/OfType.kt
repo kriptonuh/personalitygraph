@@ -1,9 +1,10 @@
 package io.personalitygraph.models.relations
 
+import io.personalitygraph.models.RelationTypes
 import io.personalitygraph.models.nodes.*
 import org.neo4j.ogm.annotation.*
 
-@RelationshipEntity(type = "OF_TYPE")
+@RelationshipEntity(type = RelationTypes.OF_TYPE)
 class OfType {
     @Id
     @GeneratedValue

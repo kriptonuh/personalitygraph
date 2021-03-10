@@ -1,6 +1,7 @@
 package io.personalitygraph.models.nodes
 
 import io.personalitygraph.models.DomainModel
+import io.personalitygraph.models.RelationTypes
 import org.neo4j.ogm.annotation.NodeEntity
 import org.neo4j.ogm.annotation.Property
 import org.neo4j.ogm.annotation.Relationship
@@ -11,8 +12,8 @@ import org.neo4j.ogm.annotation.Relationship
 @NodeEntity
 class Question(
     @Property var questionText: String? = "",
-    @Relationship(type = "OF_TYPE") var questionType: QuestionType? = null,
-    @Relationship(type = "HAS_OPTIONS", direction = Relationship.OUTGOING)
+    @Relationship(type = RelationTypes.OF_TYPE) var questionType: QuestionType? = null,
+    @Relationship(type = RelationTypes.HAS_OPTION, direction = Relationship.OUTGOING)
     var answers: MutableSet<Answer> = mutableSetOf()
 ) : DomainModel() {
 

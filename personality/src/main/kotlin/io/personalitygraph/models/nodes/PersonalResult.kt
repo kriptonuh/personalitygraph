@@ -1,8 +1,7 @@
 package io.personalitygraph.models.nodes
 
 import io.personalitygraph.models.DomainModel
-import org.neo4j.ogm.annotation.GeneratedValue
-import org.neo4j.ogm.annotation.Id
+import io.personalitygraph.models.RelationTypes
 import org.neo4j.ogm.annotation.NodeEntity
 import org.neo4j.ogm.annotation.Relationship
 
@@ -12,10 +11,10 @@ import org.neo4j.ogm.annotation.Relationship
  */
 @NodeEntity(label = "PersonalResult")
 class PersonalResult(
-    @Relationship(type = "FOR_PERSON") var person: Person? = null,
-    @Relationship(type = "FOR_TEST", direction = Relationship.OUTGOING) var test: Test? = null,
-    @Relationship(type = "EXPANDS", direction = Relationship.OUTGOING) var expands: PersonalResult? = null,
-    @Relationship(type = "RECEIVED", direction = Relationship.OUTGOING)
+    @Relationship(type = RelationTypes.FOR_PERSON) var person: Person? = null,
+    @Relationship(type = RelationTypes.FOR_TEST, direction = Relationship.OUTGOING) var test: Test? = null,
+    @Relationship(type = RelationTypes.EXPANDS, direction = Relationship.OUTGOING) var expands: PersonalResult? = null,
+    @Relationship(type = RelationTypes.RECEIVED, direction = Relationship.OUTGOING)
     var results: MutableSet<Result> = mutableSetOf()
 ) : DomainModel() {
 

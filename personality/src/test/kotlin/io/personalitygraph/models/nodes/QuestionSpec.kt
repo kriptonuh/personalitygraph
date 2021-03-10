@@ -24,9 +24,7 @@ object QuestionSpec : Spek({
                 builder
                     .questionText(text)
                     .questionType(mockQuestionType)
-                    .applicableAnswer(mockAnswer1)
-                    .applicableAnswer(mockAnswer2)
-                    .applicableAnswer(mockAnswer2)
+                    .applicableAnswers(mockAnswer1, mockAnswer2, mockAnswer1)
             }
 
             Then("filled with data after build"){

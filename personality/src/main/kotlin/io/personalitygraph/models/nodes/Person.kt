@@ -1,6 +1,7 @@
 package io.personalitygraph.models.nodes
 
 import io.personalitygraph.models.DomainModel
+import io.personalitygraph.models.RelationTypes
 import org.neo4j.ogm.annotation.*
 
 
@@ -8,7 +9,7 @@ import org.neo4j.ogm.annotation.*
 class Person(
     @Property var name: String?,
 
-    @Relationship(type = "FOR_PERSON", direction = Relationship.INCOMING)
+    @Relationship(type = RelationTypes.FOR_PERSON, direction = Relationship.INCOMING)
     var personalResults: MutableSet<PersonalResult>
 ) : DomainModel() {
 

@@ -1,12 +1,10 @@
 package io.personalitygraph.dao
 
-import io.personalitygraph.Neo4jSessionFactory
 import io.personalitygraph.models.nodes.Characteristic
 
-interface CharacteristicDao : Dao<Characteristic>
+interface CharacteristicDao : NodeDao<Characteristic>
 
-class CharacteristicDaoImpl(neo4jSessionFactory: Neo4jSessionFactory) :
-    GenericDao<Characteristic>(neo4jSessionFactory), CharacteristicDao {
+class CharacteristicDaoImpl : GenericDao<Characteristic>(), CharacteristicDao {
     override fun getEntityType(): Class<Characteristic> {
         return Characteristic::class.java
     }

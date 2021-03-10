@@ -3,22 +3,28 @@ package io.personalitygraph
 import io.personalitygraph.dao.*
 import io.personalitygraph.services.initializators.BuilderBasedInitService
 import io.personalitygraph.services.InitService
+import io.personalitygraph.services.sessions.AnswerSaveEventListener
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import org.neo4j.ogm.session.event.EventListener
 
 val personalityGraphModule = module(createdAtStart = true) {
-    single { StandaloneNeo4jSessionFactory() as Neo4jSessionFactory }
+    //listeners
+    single(named("answerSaveEventListener")) { AnswerSaveEventListener() as EventListener }
+
+    single { StandaloneNeo4jSessionFactory(get(named("answerSaveEventListener"))) as Neo4jSessionFactory }
 
     //DAO
-    single { PersonDaoImpl(get()) as PersonDao }
-    single { TestDaoImpl(get()) as TestDao }
-    single { PersonalResultDaoImpl(get()) as PersonalResultDao }
-    single { QuestionTypeDaoImpl(get()) as QuestionTypeDao }
-    single { QuestionDaoImpl(get()) as QuestionDao }
-    single { CharacteristicDaoImpl(get()) as CharacteristicDao }
-    single { AnswerDaoImpl(get(), get()) as AnswerDao }
-    single { ResultDaoImpl(get()) as ResultDao }
-    single { AffectsDaoImpl(get()) as AffectsDao }
+    single { PersonDaoImpl() as PersonDao }
+    single { TestDaoImpl() as TestDao }
+    single { PersonalResultDaoImpl() as PersonalResultDao }
+    single { QuestionTypeDaoImpl() as QuestionTypeDao }
+    single { QuestionDaoImpl() as QuestionDao }
+    single { CharacteristicDaoImpl() as CharacteristicDao }
+    single { AnswerDaoImpl() as AnswerDao }
+    single { ResultDaoImpl() as ResultDao }
+    single { RelationDaoImpl() as RelationDao }
 
     //Services
-    single { BuilderBasedInitService(get(), get(), get(), get(), get(), get(), get(), get(), get()) as InitService }
+    single { BuilderBasedInitService(get()) as InitService }
 }

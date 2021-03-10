@@ -1,10 +1,11 @@
 package io.personalitygraph.models.relations
 
+import io.personalitygraph.models.RelationTypes
 import io.personalitygraph.models.nodes.Answer
 import io.personalitygraph.models.nodes.Question
 import org.neo4j.ogm.annotation.*
 
-@RelationshipEntity(type = "HAS_OPTION")
+@RelationshipEntity(type = RelationTypes.HAS_OPTION)
 class HasOption {
     @Id
     @GeneratedValue

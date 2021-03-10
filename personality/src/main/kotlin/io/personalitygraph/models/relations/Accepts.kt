@@ -1,9 +1,10 @@
 package io.personalitygraph.models.relations
 
+import io.personalitygraph.models.RelationTypes
 import io.personalitygraph.models.nodes.*
 import org.neo4j.ogm.annotation.*
 
-@RelationshipEntity(type = "ACCEPTS")
+@RelationshipEntity(type = RelationTypes.ACCEPTS)
 class Accepts {
     @Id
     @GeneratedValue

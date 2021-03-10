@@ -1,6 +1,7 @@
 package io.personalitygraph.models.nodes
 
 import io.personalitygraph.models.DomainModel
+import io.personalitygraph.models.RelationTypes
 import org.neo4j.ogm.annotation.*
 
 /**
@@ -10,11 +11,11 @@ import org.neo4j.ogm.annotation.*
 class Test(
     @Property var name: String? = "",
     @Property var description: String? = "",
-    @Relationship(type = "CONTAINS", direction = Relationship.OUTGOING)
+    @Relationship(type = RelationTypes.CONTAINS_QUESTION, direction = Relationship.OUTGOING)
     var questions: MutableSet<Question> = mutableSetOf(),
-    @Relationship(type = "ADMITS", direction = Relationship.OUTGOING)
+    @Relationship(type = RelationTypes.ADMITS, direction = Relationship.OUTGOING)
     var possibleResults: MutableSet<Result> = mutableSetOf(),
-    @Relationship(type = "REQUIRES", direction = Relationship.OUTGOING)
+    @Relationship(type = RelationTypes.REQUIRES, direction = Relationship.OUTGOING)
     var requiredResults: MutableSet<Result> = mutableSetOf()
 ) : DomainModel() {
 

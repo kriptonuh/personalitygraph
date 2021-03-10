@@ -1,6 +1,7 @@
 package io.personalitygraph.models.nodes
 
 import io.personalitygraph.models.DomainModel
+import io.personalitygraph.models.RelationTypes
 import org.neo4j.ogm.annotation.*
 
 /**
@@ -13,11 +14,11 @@ class Result(
     @Property var description: String? = "",
     @Property var min: Int = 0,
     @Property var max: Int = 0,
-    @Relationship(type = "DESCRIBES", direction = Relationship.OUTGOING)
+    @Relationship(type = RelationTypes.DESCRIBES, direction = Relationship.OUTGOING)
     var characteristic: Characteristic? = null,
-    @Relationship(type = "CONFLICTS", direction = Relationship.UNDIRECTED)
+    @Relationship(type = RelationTypes.CONFLICTS, direction = Relationship.UNDIRECTED)
     var conflictingResults: MutableSet<Result> = mutableSetOf(),
-    @Relationship(type = "ACCEPTS", direction = Relationship.UNDIRECTED)
+    @Relationship(type = RelationTypes.ACCEPTS, direction = Relationship.UNDIRECTED)
     var acceptedResults: MutableSet<Result> = mutableSetOf()
 ) : DomainModel() {
 

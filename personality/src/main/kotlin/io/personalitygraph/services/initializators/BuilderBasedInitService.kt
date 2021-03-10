@@ -3,19 +3,14 @@ package io.personalitygraph.services.initializators
 import io.personalitygraph.dao.*
 import io.personalitygraph.models.nodes.*
 import io.personalitygraph.services.InitService
+import org.slf4j.LoggerFactory
 
 
 class BuilderBasedInitService(
-    private val personDao: PersonDao,
-    private val personalResultDao: PersonalResultDao,
-    private val questionDao: QuestionDao,
-    private val testDao: TestDao,
-    private val answerDao: AnswerDao,
-    private val resultDao: ResultDao,
-    private val questionTypeDao: QuestionTypeDao,
-    private val characteristicDao: CharacteristicDao,
-    private val affectsDao: AffectsDao
+    private val testDao: TestDao
 ) : InitService {
+
+    private val logger = LoggerFactory.getLogger(this::class.java.simpleName)
 
     override fun init() {
         val radioQuestion = QuestionType.Builder().typeName("radio").build()
@@ -40,8 +35,7 @@ class BuilderBasedInitService(
         val rootTest = Test.Builder()
             .name("Humanity test")
             .description("Defines if you're human")
-            .possibleResult(rootTestResult1)
-            .possibleResult(rootTestResult2)
+            .possibleResults(rootTestResult1, rootTestResult2)
             .question(
                 Question.Builder()
                     .questionText("Are you human?")
@@ -82,9 +76,7 @@ class BuilderBasedInitService(
         val childTest = Test.Builder()
             .name("Personality type test")
             .description("Defines if you're introvert or extravert")
-            .possibleResult(introvertResult)
-            .possibleResult(extravertResult)
-            .possibleResult(intermediateResult)
+            .possibleResults(introvertResult, extravertResult, intermediateResult)
             .requires(rootTestResult1)
             .questions(
                 Question.Builder()
@@ -115,6 +107,9 @@ class BuilderBasedInitService(
                     ).build(),
             )
             .build()
+        childTest.questions.forEach {
+            logger.info("tetete $it")
+        }
 
         testDao.createOrUpdate(rootTest, childTest)
 
@@ -127,8 +122,7 @@ class BuilderBasedInitService(
                     .build()
             ).build()
 
-        personDao.createOrUpdate(dimon)
-
+        //personDao.createOrUpdate(dimon)
         //println(answerDao.createOrUpdate())
         //personDao.createOrUpdate(Person("Banzai"))
     }

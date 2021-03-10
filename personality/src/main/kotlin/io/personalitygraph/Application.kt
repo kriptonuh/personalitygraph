@@ -8,7 +8,9 @@ import io.personalitygraph.dao.PersonDao
 import io.personalitygraph.dao.PersonalResultDao
 import io.personalitygraph.models.nodes.Person
 import io.personalitygraph.services.InitService
+import org.koin.core.logger.Level
 import org.koin.ktor.ext.Koin
+import org.koin.ktor.ext.getProperty
 import org.koin.ktor.ext.inject
 import org.koin.logger.slf4jLogger
 import kotlin.system.measureTimeMillis
@@ -29,8 +31,8 @@ fun Application.module(testing: Boolean = false) {
     install(ContentNegotiation)
 
     install(Koin) {
-        slf4jLogger()
-        modules(personalityGraphModule, personalityGraphModule)
+        modules(personalityGraphModule)
+        fileProperties()
     }
     val personDao: PersonDao by inject()
     val personalResultDao: PersonalResultDao by inject()
@@ -38,7 +40,8 @@ fun Application.module(testing: Boolean = false) {
 
     routing {
         get("/") {
-            call.respondText("message")
+            val text = this@routing.getProperty("props.test", "not found")
+            call.respondText(text)
         }
     }
     routing {

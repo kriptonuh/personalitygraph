@@ -1,10 +1,11 @@
 package io.personalitygraph.models.relations
 
+import io.personalitygraph.models.RelationTypes
 import io.personalitygraph.models.nodes.Characteristic
 import io.personalitygraph.models.nodes.Result
 import org.neo4j.ogm.annotation.*
 
-@RelationshipEntity(type = "DESCRIBES")
+@RelationshipEntity(type = RelationTypes.DESCRIBES)
 class Describes {
     @Id
     @GeneratedValue

@@ -1,10 +1,11 @@
 package io.personalitygraph.models.relations
 
+import io.personalitygraph.models.RelationTypes
 import io.personalitygraph.models.nodes.Result
 import io.personalitygraph.models.nodes.Test
 import org.neo4j.ogm.annotation.*
 
-@RelationshipEntity(type = "REQUIRES")
+@RelationshipEntity(type = RelationTypes.REQUIRES)
 class Requires {
     @Id
     @GeneratedValue
