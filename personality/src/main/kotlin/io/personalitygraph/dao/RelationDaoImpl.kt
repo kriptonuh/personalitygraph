@@ -1,6 +1,6 @@
 package io.personalitygraph.dao
 
-import io.personalitygraph.Neo4jSessionFactory
+import io.personalitygraph.services.sessions.Neo4jSessionFactory
 import io.personalitygraph.models.DomainModel
 import io.personalitygraph.models.RelationTypes
 import org.koin.java.KoinJavaComponent

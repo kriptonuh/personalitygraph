@@ -8,9 +8,9 @@ import org.neo4j.ogm.annotation.*
 
 @RelationshipEntity(type = RelationTypes.AFFECTS)
 class Affects(
-    @StartNode var answer: Answer?,
-    @EndNode var characteristic: Characteristic?,
-    @Property var modifier: Int?
+    @StartNode var answer: Answer? = null,
+    @EndNode var characteristic: Characteristic? = null,
+    @Property var modifier: Int? = null
 ) : DomainModel() {
 
     @Transient

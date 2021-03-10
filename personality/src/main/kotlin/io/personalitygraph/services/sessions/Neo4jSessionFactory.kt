@@ -1,6 +1,5 @@
-package io.personalitygraph
+package io.personalitygraph.services.sessions
 
-import org.koin.java.KoinJavaComponent
 import org.neo4j.ogm.config.ClasspathConfigurationSource
 import org.neo4j.ogm.config.Configuration
 import org.neo4j.ogm.session.Session

@@ -4,6 +4,8 @@ import io.personalitygraph.dao.*
 import io.personalitygraph.services.initializators.BuilderBasedInitService
 import io.personalitygraph.services.InitService
 import io.personalitygraph.services.sessions.AnswerSaveEventListener
+import io.personalitygraph.services.sessions.Neo4jSessionFactory
+import io.personalitygraph.services.sessions.StandaloneNeo4jSessionFactory
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.neo4j.ogm.session.event.EventListener
