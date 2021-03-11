@@ -20,13 +20,9 @@ object RelationDaoImplSpec : Spek({
     val mockEnd = mock<DomainModel>()
     val mockSession = mock<Session>()
 
-    val mockSessionFactory = mock<Neo4jSessionFactory> {
-        on { getNeo4jSession() } doReturn mockSession
-    }
-
     beforeGroup {
         mockInjections {
-            single { mockSessionFactory as Neo4jSessionFactory }
+            factory(named("neo4jSession")) { mockSession }
             single(named("relationTypesMap")) { mapOf(mockType::class to "test") }
         }
     }
