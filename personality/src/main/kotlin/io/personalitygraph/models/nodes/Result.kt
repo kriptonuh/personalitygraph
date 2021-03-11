@@ -51,11 +51,7 @@ class Result(
         fun build(): Result {
             return Result(text, description, min, max, characteristic, conflictingResults, acceptedResults)
         }
-
-
     }
-
-
 }
 
 

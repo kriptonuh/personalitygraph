@@ -1,20 +1,22 @@
 package io.personalitygraph.dao
 
-import io.personalitygraph.services.sessions.Neo4jSessionFactory
 import io.personalitygraph.models.DomainModel
+import io.personalitygraph.services.sessions.Neo4jSessionFactory
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.koin.core.qualifier.named
-import org.koin.java.KoinJavaComponent.inject
 import org.neo4j.ogm.session.Session
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import kotlin.reflect.KClass
 
-class RelationDaoImpl : RelationDao {
+@KoinApiExtension
+class RelationDaoImpl : RelationDao, KoinComponent {
     private val log: Logger = LoggerFactory.getLogger(this::class.qualifiedName)
 
-    private val relationTypesMap by inject(Map::class.java, named("relationTypesMap"))
-    private val neo4jSessionFactory by inject(Neo4jSessionFactory::class.java)
-    private val session: Session = neo4jSessionFactory.getNeo4jSession()
+    private val relationTypesMap: Map<KClass<*>, String> by inject(named("relationTypesMap"))
+    private val session: Session by inject(named("neo4jSession"))
 
     override fun <T : DomainModel, S : DomainModel, E : DomainModel>
             findRelationshipBetween(resultType: KClass<T>, start: S, end: E): T? {

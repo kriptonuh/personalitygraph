@@ -1,4 +1,4 @@
-package io.personalitygraph.services
+package io.personalitygraph.services.initializators
 
 interface InitService {
     fun init()

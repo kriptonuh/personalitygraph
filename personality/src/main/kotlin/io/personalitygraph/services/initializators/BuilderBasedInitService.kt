@@ -3,16 +3,17 @@ package io.personalitygraph.services.initializators
 import io.personalitygraph.dao.PersonDao
 import io.personalitygraph.dao.TestDao
 import io.personalitygraph.models.nodes.*
-import io.personalitygraph.services.InitService
-import org.koin.java.KoinJavaComponent.inject
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.slf4j.LoggerFactory
 
-
-class BuilderBasedInitService : InitService {
+@KoinApiExtension
+class BuilderBasedInitService : InitService, KoinComponent {
     private val logger = LoggerFactory.getLogger(this::class.qualifiedName)
 
-    private val testDao by inject(TestDao::class.java)
-    private val personDao by inject(PersonDao::class.java)
+    private val testDao: TestDao by inject()
+    private val personDao: PersonDao by inject()
 
     override fun init() {
         logger.info("Initializing data")
@@ -124,7 +125,7 @@ class BuilderBasedInitService : InitService {
         testDao.createOrUpdate(rootTest, childTest)
 
         logger.debug("Saving data $dimon")
-        personDao.createOrUpdate(dimon)
+        personDao.createOrUpdate(dimon, 1)
 
         logger.info("Data initialized")
     }

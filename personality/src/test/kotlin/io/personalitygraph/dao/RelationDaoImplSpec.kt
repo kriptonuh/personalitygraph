@@ -7,11 +7,13 @@ import com.nhaarman.mockitokotlin2.verify
 import io.personalitygraph.MockInjector.mockInjections
 import io.personalitygraph.models.DomainModel
 import io.personalitygraph.services.sessions.Neo4jSessionFactory
+import org.koin.core.component.KoinApiExtension
 import org.koin.core.qualifier.named
 import org.neo4j.ogm.session.Session
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
 
+@KoinApiExtension
 object RelationDaoImplSpec : Spek({
     val mockType = mock<DomainModel>()
     val mockStart = mock<DomainModel>()

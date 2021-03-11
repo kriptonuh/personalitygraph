@@ -7,12 +7,10 @@ import io.ktor.routing.*
 import io.personalitygraph.dao.PersonDao
 import io.personalitygraph.dao.PersonalResultDao
 import io.personalitygraph.models.nodes.Person
-import io.personalitygraph.services.InitService
-import org.koin.core.logger.Level
+import io.personalitygraph.services.initializators.InitService
 import org.koin.ktor.ext.Koin
 import org.koin.ktor.ext.getProperty
 import org.koin.ktor.ext.inject
-import org.koin.logger.slf4jLogger
 import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>): Unit {
@@ -24,9 +22,7 @@ fun main(args: Array<String>): Unit {
  * Please note that you can use any other name instead of *module*.
  * Also note that you can have more then one modules in your application.
  * */
-@Suppress("unused") // Referenced in application.conf
-@kotlin.jvm.JvmOverloads
-fun Application.module(testing: Boolean = false) {
+fun Application.module() {
     install(CallLogging)
     install(ContentNegotiation)
 

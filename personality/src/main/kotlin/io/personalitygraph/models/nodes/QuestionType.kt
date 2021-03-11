@@ -15,14 +15,10 @@ class QuestionType(@Property var type: String? = "") : DomainModel() {
         return "QuestionType(id=$id, type='$type')"
     }
 
-    data class Builder(
-        private var type: String? = null
-    ) {
+    data class Builder(private var type: String? = null) {
         fun typeName(typeName: String) = apply { this.type = typeName }
         fun build(): QuestionType {
             return QuestionType(type)
         }
-
-
     }
 }

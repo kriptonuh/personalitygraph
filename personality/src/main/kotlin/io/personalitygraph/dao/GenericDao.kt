@@ -1,17 +1,19 @@
 package io.personalitygraph.dao
 
-import io.personalitygraph.services.sessions.Neo4jSessionFactory
 import io.personalitygraph.models.DomainModel
-import org.koin.java.KoinJavaComponent.inject
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.qualifier.named
 import org.neo4j.ogm.session.Session
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-abstract class GenericDao<T : DomainModel> : NodeDao<T> {
+@KoinApiExtension
+abstract class GenericDao<T : DomainModel> : NodeDao<T>, KoinComponent {
     private val log: Logger = LoggerFactory.getLogger(this::class.qualifiedName)
     override var defaultDepth = 3
-    private val neo4jSessionFactory by inject(Neo4jSessionFactory::class.java)
-    protected val session: Session = neo4jSessionFactory.getNeo4jSession()
+    protected val session: Session by inject(named("neo4jSession"))
 
     override fun findAll(depth: Int): Iterable<T> {
         log.debug("trying to find all items of type [${getEntityType().canonicalName}]")
